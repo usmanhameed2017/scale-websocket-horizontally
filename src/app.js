@@ -25,6 +25,9 @@ function startApp()
     // Make io accessible to app
     app.set("io", io);
 
+    // Initialize subscriber
+    initializeSubscriber(io);    
+
     // Socket connection
     connectSocket(io);    
 
