@@ -25,6 +25,9 @@ function startApp()
     // Make io accessible to app
     app.set("io", io);
 
+    // Socket connection
+    connectSocket(io);    
+
     // Start server
     server.on("error", () => console.log("Failed to start server"));
     server.listen(PORT, () => console.log(`Server is up and running at port ${PORT}`));
