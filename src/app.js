@@ -6,6 +6,7 @@ const { corsOptions, PORT } = require("./constants");
 const initializeSubscriber = require("./redis/subscriber");
 const { socketInterceptor } = require("./middlewares/socket.middleware");
 const connectSocket = require("./utils/connectSocket");
+const errorHandler = require("./middlewares/errorHandler.middleware");
 
 // Initialize express app
 function startApp()
@@ -36,6 +37,9 @@ function startApp()
 
     // Socket connection
     connectSocket(io);
+
+    // Error handler middleware
+    app.use(errorHandler);
 
     // Start server
     server.on("error", () => console.log("Failed to start server"));
