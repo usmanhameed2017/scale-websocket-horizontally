@@ -3,6 +3,9 @@ const { Server } = require("socket.io");
 const express = require("express");
 const cors = require("cors");
 const { corsOptions, PORT } = require("./constants");
+const initializeSubscriber = require("./redis/subscriber");
+const { socketInterceptor } = require("./middlewares/socket.middleware");
+const connectSocket = require("./utils/connectSocket");
 
 // Initialize express app
 function startApp()
@@ -26,10 +29,13 @@ function startApp()
     app.set("io", io);
 
     // Initialize subscriber
-    initializeSubscriber(io);    
+    initializeSubscriber(io);
+
+    // Socket middleware
+    io.use(socketInterceptor);
 
     // Socket connection
-    connectSocket(io);    
+    connectSocket(io);
 
     // Start server
     server.on("error", () => console.log("Failed to start server"));
