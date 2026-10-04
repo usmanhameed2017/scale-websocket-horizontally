@@ -38,6 +38,12 @@ function startApp()
     // Socket connection
     connectSocket(io);
 
+    // Import Routes
+    const messageRouter = require("./routes/message.route");
+
+    // Register routes
+    app.use("/api/v1/message", messageRouter);    
+
     // Error handler middleware
     app.use(errorHandler);
 
